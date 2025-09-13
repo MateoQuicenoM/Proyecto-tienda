@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Cuenta - Tienda</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Cuenta de Usuario</h1>
+  <nav>
+    <a href="index.html">Inicio</a> |
+    <a href="productos.html">Productos</a> |
+    <a href="carrito.html">Carrito</a>
+  </nav>
+
+  <form id="cuentaForm">
+    <input type="text" id="nombre" placeholder="Nombre completo" required>
+    <input type="number" id="documento" placeholder="Documento" required>
+    <input type="date" id="fechaNacimiento" required>
+    <input type="email" id="correo" placeholder="Correo" required>
+    <button type="submit">Actualizar</button>
+  </form>
+
+  <script src="/js/cuenta.js"></script>
+</body>
+</html>

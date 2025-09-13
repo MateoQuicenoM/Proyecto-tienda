@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pedido - Tienda</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h1>Confirmar Pedido</h1>
+  <nav>
+    <a href="carrito.html">Volver al Carrito</a>
+  </nav>
+
+  <form id="pedidoForm">
+    <label for="metodoPago">Método de Pago:</label>
+    <select id="metodoPago" required>
+      <option value="tarjeta">Tarjeta</option>
+      <option value="efectivo">Efectivo</option>
+      <option value="transferencia">Transferencia</option>
+    </select>
+    <button type="submit">Confirmar Pedido</button>
+  </form>
+
+  <script src="/js/pedido.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Inicio - Mi Tienda</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Mi Tienda</h1>
+    <nav>
+      <a href="/index.html">Home</a> |
+      <a href="/productos.html">Productos</a> |
+      <a href="/carrito.html">Carrito</a> |
+      <a href="/pedido.html">Pedido</a> |
+      <a href="/factura.html">Factura</a> |
+      <a href="/cuenta.html">Mi Cuenta</a> |
+      <a href="/login.html">Login</a> |
+      <a href="/registro.html">Registro</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="intro">
+      <h2>Productos destacados</h2>
+      <p>Haz clic en "Cargar productos" para traer la lista desde la API y comprobar que backend y frontend están conectados.</p>
+      <button id="loadProductsBtn">Cargar productos</button>
+    </section>
+
+    <section id="productosDestacados" aria-live="polite">
+      <!-- Aquí inyectará js/index.js: tarjetas con id, foto, nombre, precio y descripción -->
+    </section>
+  </main>
+
+  <script src="/js/index.js"></script>
+</body>
+</html>
