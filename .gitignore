@@ -11,4 +11,5 @@ node_modules/
 .DS_Store
 
 # Carpeta de base de datos local (opcional)
-# db/local.db
+# Ignoramos solo el archivo local.db
+db/local.db

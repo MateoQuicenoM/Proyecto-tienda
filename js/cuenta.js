@@ -2,66 +2,65 @@
 const API_URL = 'http://localhost:3000';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Verificar si el usuario está logueado y si su ID existe
+    // Obtenemos el usuario del localStorage (asumiendo que auth.js ya verificó la sesión)
     const usuario = JSON.parse(localStorage.getItem('usuario'));
-    
-    // Si el usuario no existe o no tiene un ID, redirigir al login
-    if (!usuario || !usuario.id) {
-        window.location.href = 'login.html';
-        return;
-    }
 
     const form = document.getElementById('cuentaForm');
     const nombreInput = document.getElementById('nombre');
     const documentoInput = document.getElementById('documento');
     const fechaNacimientoInput = document.getElementById('fechaNacimiento');
     const correoInput = document.getElementById('correo');
+    const direccionInput = document.getElementById('direccion');
+    const telefonoInput = document.getElementById('telefono');
     const historialPedidosSection = document.getElementById('historialPedidos');
 
-    // 2. Cargar los datos del usuario en el formulario (verificando que existan)
+    // Llenar los campos con los datos del usuario (los campos inmutables son de solo lectura)
     nombreInput.value = usuario.nombre || '';
+    nombreInput.readOnly = true;
     documentoInput.value = usuario.documento || '';
+    documentoInput.readOnly = true;
     fechaNacimientoInput.value = usuario.fechaNacimiento || '';
+    fechaNacimientoInput.readOnly = true;
     correoInput.value = usuario.email || '';
+    direccionInput.value = usuario.direccion || '';
+    telefonoInput.value = usuario.telefono || '';
 
-    // 3. Actualizar datos del usuario
+    // Lógica para actualizar los datos de la cuenta
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const updatedData = {
-            nombre: nombreInput.value,
-            documento: documentoInput.value,
-            fechaNacimiento: fechaNacimientoInput.value,
-            email: correoInput.value
-        };
 
+        const datosActualizados = {
+            direccion: direccionInput.value,
+            telefono: telefonoInput.value
+        };
+        
         try {
             const res = await fetch(`${API_URL}/clientes/${usuario.id}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updatedData)
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(datosActualizados)
             });
 
             if (!res.ok) {
-                const errorText = await res.text();
-                throw new Error(`Error al actualizar: ${errorText}`);
+                throw new Error('Error al actualizar los datos');
             }
 
-            const result = await res.json();
-            alert(result.message);
+            const data = await res.json();
+            // Actualizar los datos del usuario en localStorage
+            const usuarioActualizado = { ...usuario, ...datosActualizados };
+            localStorage.setItem('usuario', JSON.stringify(usuarioActualizado));
 
-            // Actualizar localStorage con los nuevos datos
-            const updatedUsuario = { ...usuario, ...updatedData };
-            localStorage.setItem('usuario', JSON.stringify(updatedUsuario));
-
+            alert('Datos actualizados con éxito.');
         } catch (error) {
             console.error('Error:', error);
-            alert('Error al actualizar la cuenta.');
+            alert('Hubo un error al actualizar los datos. Inténtalo de nuevo.');
         }
     });
 
-    // 4. Cargar historial de pedidos
+    // Lógica para cargar el historial de pedidos
     async function cargarHistorialPedidos() {
-        // Verificar que el elemento HTML exista antes de intentar modificarlo
         if (!historialPedidosSection) {
             console.error('Error: No se encontró el elemento con ID "historialPedidos" en el HTML.');
             return;
@@ -97,5 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
             historialPedidosSection.innerHTML = '<p>Error al cargar el historial de pedidos.</p>';
         }
     }
+
     cargarHistorialPedidos();
 });

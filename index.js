@@ -1,11 +1,20 @@
 const express = require('express');
 const cors = require('cors');
-const path = require('path');  // 👈 IMPORTANTE
-const db = require('./models/db'); // conexión a MySQL
+const path = require('path');
+const session = require('express-session'); // 👈 añadido
+const db = require('./models/db');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+// 👉 Configuración de sesiones
+app.use(session({
+  secret: "clave_secreta_segura",
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } // cambiar a true si usas HTTPS
+}));
 
 // 👉 Servir archivos estáticos (frontend)
 app.use(express.static(path.join(__dirname, 'pages')));

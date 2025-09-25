@@ -6,14 +6,34 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>Iniciar Sesión</h1>
-  <form id="loginForm">
-    <input type="email" id="correo" placeholder="Correo" required>
-    <input type="password" id="password" placeholder="Contraseña" required>
-    <button type="submit">Ingresar</button>
-  </form>
-  <p>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+  <header>
+    <h1>Iniciar Sesión</h1>
+    <nav>
+      <a href="index.html">Inicio</a> |
+      <a href="productos.html">Productos</a> |
+      <a href="carrito.html">Carrito</a> |
+      <a href="pedido.html">Pedido</a> |
+      <a href="factura.html">Factura</a> |
+      <a href="cuenta.html">Mi Cuenta</a> |
+      <a href="login.html" id="loginLink">Login</a> |
+      <a href="registro.html" id="registroLink">Registro</a>
+      <a href="#" id="logoutLink" style="display:none;">Cerrar sesión</a>
+    </nav>
+  </header>
+  <div class="container form-card">
+    <form id="loginForm">
+      <div class="form-group">
+        <input type="email" id="correo" placeholder="Correo" required>
+      </div>
+      <div class="form-group">
+        <input type="password" id="password" placeholder="Contraseña" required>
+      </div>
+      <button type="submit" class="button form-button">Ingresar</button>
+    </form>
+    <p>¿No tienes cuenta? <a href="registro.html" class="link">Regístrate aquí</a></p>
+  </div>
 
   <script src="/js/login.js"></script>
+  <script src="/js/auth.js"></script>
 </body>
 </html>

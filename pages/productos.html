@@ -6,14 +6,26 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>Todos los Productos</h1>
-  <nav>
-    <a href="index.html">Inicio</a> |
-    <a href="carrito.html">Carrito</a>
-  </nav>
+  <header>
+    <h1>Todos los Productos</h1>
+    <nav>
+      <a href="index.html">Inicio</a> |
+      <a href="productos.html">Productos</a> |
+      <a href="carrito.html">Carrito</a> |
+      <a href="pedido.html">Pedido</a> |
+      <a href="factura.html">Factura</a> |
+      <a href="cuenta.html">Mi Cuenta</a> |
+      <a href="login.html" id="loginLink">Login</a> |
+      <a href="registro.html" id="registroLink">Registro</a>
+      <a href="#" id="logoutLink" style="display:none;">Cerrar sesión</a>
+    </nav>
+  </header>
 
-  <div id="productos"></div>
+  <main class="container">
+    <div id="productos" class="productos-grid"></div>
+  </main>
 
   <script src="js/productos.js"></script>
+  <script src="/js/auth.js"></script>
 </body>
 </html>

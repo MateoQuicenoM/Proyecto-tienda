@@ -10,29 +10,30 @@
   <header>
     <h1>Mi Tienda</h1>
     <nav>
-      <a href="/index.html">Home</a> |
-      <a href="/productos.html">Productos</a> |
-      <a href="/carrito.html">Carrito</a> |
-      <a href="/pedido.html">Pedido</a> |
-      <a href="/factura.html">Factura</a> |
-      <a href="/cuenta.html">Mi Cuenta</a> |
-      <a href="/login.html">Login</a> |
-      <a href="/registro.html">Registro</a>
+      <a href="index.html">Inicio</a> |
+      <a href="productos.html">Productos</a> |
+      <a href="carrito.html">Carrito</a> |
+      <a href="pedido.html">Pedido</a> |
+      <a href="factura.html">Factura</a> |
+      <a href="cuenta.html">Mi Cuenta</a> |
+      <a href="login.html" id="loginLink">Login</a> |
+      <a href="registro.html" id="registroLink">Registro</a>
+      <a href="#" id="logoutLink" style="display:none;">Cerrar sesión</a>
     </nav>
   </header>
 
-  <main>
+  <main class="container">
     <section id="intro">
       <h2>Productos destacados</h2>
       <p>Haz clic en "Cargar productos" para traer la lista desde la API y comprobar que backend y frontend están conectados.</p>
-      <button id="loadProductsBtn">Cargar productos</button>
+      <button id="loadProductsBtn" class="button">Cargar productos</button>
     </section>
 
-    <section id="productosDestacados" aria-live="polite">
-      <!-- Aquí inyectará js/index.js: tarjetas con id, foto, nombre, precio y descripción -->
-    </section>
+    <section id="productosDestacados" aria-live="polite" class="productos-grid">
+      </section>
   </main>
 
   <script src="/js/index.js"></script>
+  <script src="/js/auth.js"></script>
 </body>
 </html>

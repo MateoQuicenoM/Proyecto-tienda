@@ -1,61 +1,56 @@
 // URL base de la API
-const API_URL = 'http://localhost:3000/pedidos';
+const API_URL = 'http://localhost:3000';
 
-document.getElementById("pedidoForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    // 1. Obtener los datos del usuario y del carrito del localStorage
+document.addEventListener('DOMContentLoaded', () => {
+    // Asumimos que el usuario ya está logueado gracias a auth.js
     const usuario = JSON.parse(localStorage.getItem('usuario'));
-    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    
+    const pedidoForm = document.getElementById('pedidoForm');
+    
+    pedidoForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    // Si el usuario no está logueado o el carrito está vacío, se detiene la ejecución
-    if (!usuario) {
-        return alert("❌ Por favor, inicia sesión para confirmar el pedido.");
-    }
-    if (carrito.length === 0) {
-        return alert("❌ No puedes hacer un pedido con el carrito vacío.");
-    }
+        const metodoPago = document.getElementById('metodoPago').value;
+        const productos = JSON.parse(localStorage.getItem('carrito')) || [];
 
-    // 2. Preparar los datos para el servidor
-    const cliente_id = usuario.clienteId;
-    const metodo_pago = document.getElementById('metodoPago').value;
-
-    // Formatear los productos con la cantidad y el precio unitario
-    const productos = carrito.map(item => {
-        return {
-            producto_id: item.id,
-            cantidad: item.cantidad,
-            precio_unitario: item.precio // ✨ ¡Ahora enviamos el precio unitario! ✨
-        };
-    });
-
-    // 3. Enviar la solicitud al servidor
-    try {
-        const res = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                cliente_id,
-                productos,
-                metodo_pago
-            })
-        });
-
-        const data = await res.json();
-        
-        // Si la respuesta es exitosa
-        if (res.ok) {
-            alert(data.message);
-            localStorage.removeItem('carrito'); // Limpiar el carrito
-            // Redireccionar a la página de la factura
-            window.location.href = `factura.html?pedidoId=${data.pedidoId}`;
-        } else {
-            alert(data.error);
+        if (productos.length === 0) {
+            alert('Tu carrito está vacío. Agrega productos para realizar un pedido.');
+            return;
         }
-    } catch (err) {
-        console.error(err);
-        alert("Error al confirmar el pedido. Por favor, inténtalo de nuevo.");
-    }
+
+        // Mapea los productos del carrito para que el backend los entienda (solo id y cantidad)
+        const productosParaApi = productos.map(item => ({
+            producto_id: item.id,
+            cantidad: item.cantidad
+        }));
+
+        const nuevoPedido = {
+            cliente_id: usuario.id,
+            metodo_pago: metodoPago,
+            productos: productosParaApi
+        };
+
+        try {
+            const res = await fetch(`${API_URL}/pedidos`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(nuevoPedido)
+            });
+
+            if (!res.ok) {
+                const errorText = await res.text();
+                throw new Error(`Error al crear el pedido: ${errorText}`);
+            }
+
+            const data = await res.json();
+            alert('Pedido confirmado con éxito. Número de pedido: ' + data.pedido_id);
+            localStorage.removeItem('carrito'); // Limpia el carrito
+            window.location.href = `factura.html?pedidoId=${data.pedido_id}`; // Redirige a la factura
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Hubo un error al confirmar el pedido. Inténtalo de nuevo más tarde.');
+        }
+    });
 });

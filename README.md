@@ -98,16 +98,29 @@ npm install
 
 ---
 
-## ▶️ Ejecución del servidor
+## ▶️ Inicialización de la aplicación (Backend + Frontend)
 
-Iniciar el servidor con:
+Este proyecto **no necesita un servidor separado para el frontend**.  
+El mismo servidor Node/Express (`index.js`) se encarga de:
+
+- Exponer la API (rutas de productos, clientes, pedidos, facturas).
+- Servir los archivos estáticos de la carpeta `pages/` y `public/`.
+
+### Pasos:
+
+1. Levantar el servidor con:
 
 ```bash
 nodemon index.js
 ```
 
-El backend quedará corriendo en:  
-👉 `http://localhost:3000`
+2. Abrir en el navegador:
+
+```
+http://localhost:3000/pages/index.html
+```
+
+De esta forma ya se cargan las páginas HTML con conexión al backend.
 
 ---
 

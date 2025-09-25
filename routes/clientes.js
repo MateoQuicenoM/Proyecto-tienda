@@ -4,7 +4,7 @@ const db = require('../models/db');
 const bcrypt = require('bcryptjs');
 
 // ======================
-// LOGIN cliente
+// LOGIN cliente con sesión
 // ======================
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
@@ -23,30 +23,51 @@ router.post('/login', (req, res) => {
 
       const cliente = results[0];
 
-      // Verificar contraseña encriptada
+      // Verificar contraseña
       const esValida = await bcrypt.compare(password, cliente.password);
       if (!esValida) {
         return res.status(401).json({ error: 'Credenciales inválidas' });
       }
 
+      // 👉 Guardar en sesión
+      req.session.user = {
+        id: cliente.id,
+        nombre: cliente.nombre_completo,
+        email: cliente.email
+      };
+
       res.json({
         message: '✅ Inicio de sesión exitoso',
-        clienteId: cliente.id,
-        nombre: cliente.nombre_completo,
-        email: cliente.email,
+        user: req.session.user
       });
     }
   );
 });
 
 // ======================
+// Ver sesión activa
+// ======================
+router.get('/me', (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ error: 'No hay sesión iniciada' });
+  }
+  res.json({ user: req.session.user });
+});
+
+// ======================
+// Logout
+// ======================
+router.post('/logout', (req, res) => {
+  req.session.destroy();
+  res.json({ success: true, message: '✅ Sesión cerrada' });
+});
+
+// ======================
 // REGISTRO cliente
 // ======================
 router.post('/registro', async (req, res) => {
-  // Se extraen todos los campos del cuerpo de la solicitud
   const { nombre, email, password, documento, fechaNacimiento, direccion, telefono } = req.body;
 
-  // 🚩 Solo se verifican los campos obligatorios
   if (!nombre || !email || !password || !documento || !fechaNacimiento) {
     return res.status(400).json({ error: 'Faltan campos obligatorios' });
   }
@@ -55,10 +76,8 @@ router.post('/registro', async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // La consulta SQL se mantiene igual. Si 'direccion' o 'telefono'
-    // son undefined en la solicitud, se insertarán como NULL en la base de datos
     const sql = 'INSERT INTO clientes (nombre, email, password, direccion, telefono, numero_documento, fecha_nacimiento) VALUES (?, ?, ?, ?, ?, ?, ?)';
-    db.query(sql, [nombre, email, hashedPassword, documento, fechaNacimiento, direccion, telefono], (err, result) => {
+    db.query(sql, [nombre, email, hashedPassword, direccion, telefono, documento, fechaNacimiento], (err, result) => {
       if (err) {
         if (err.code === 'ER_DUP_ENTRY') {
           return res.status(409).json({ error: 'El correo electrónico ya está registrado.' });

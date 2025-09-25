@@ -3,27 +3,22 @@ const API_URL = 'http://localhost:3000';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const facturaContainer = document.getElementById('factura');
-    // 🆕 Obtener el ID del pedido de los parámetros de la URL
     const params = new URLSearchParams(window.location.search);
     const pedidoId = params.get('pedidoId');
 
-    // Verificar si hay un ID de pedido en la URL
     if (!pedidoId) {
         facturaContainer.innerHTML = '<p>No se encontró un pedido. Por favor, realiza una compra.</p>';
         return;
     }
 
     try {
-        // Obtener los detalles de la factura desde la API
         const res = await fetch(`${API_URL}/facturas/${pedidoId}`);
         if (!res.ok) {
             throw new Error('Error al obtener los datos de la factura');
         }
         const factura = await res.json();
 
-        // Renderizar la factura en la página
         renderFactura(factura);
-
     } catch (error) {
         console.error('Error:', error);
         facturaContainer.innerHTML = '<p>Ocurrió un error al cargar la factura. Inténtalo de nuevo más tarde.</p>';
