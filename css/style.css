@@ -103,11 +103,20 @@ header a:hover {
 }
 
 .producto-card img {
-    width: 100%;
+    width: 200px;
     height: 200px;
     object-fit: cover;
     border-bottom: 1px solid #ddd;
-    margin-bottom: 15px;
+    margin: 0 auto 15px auto;
+}
+
+.productos-grid img  /* El nuevo selector (para forzar el tamaño si el JS no usa .producto-card) */
+{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+    margin: 0 auto 15px auto;
 }
 
 /*

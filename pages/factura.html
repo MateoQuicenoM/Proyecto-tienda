@@ -1,33 +1,34 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Factura - Tienda</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <title>Factura - Tienda</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header>
-    <h1>Factura</h1>
-    <nav>
-      <a href="index.html">Inicio</a> |
-      <a href="productos.html">Productos</a> |
-      <a href="carrito.html">Carrito</a> |
-      <a href="pedido.html">Pedido</a> |
-      <a href="factura.html">Factura</a> |
-      <a href="cuenta.html">Mi Cuenta</a> |
-      <a href="login.html" id="loginLink">Login</a> |
-      <a href="registro.html" id="registroLink">Registro</a>
-      <a href="#" id="logoutLink" style="display:none;">Cerrar sesión</a>
-    </nav>
-  </header>
+  <header>
+    <h1>Factura</h1>
+    <nav>
+      <a href="index.html">Inicio</a> |
+      <a href="productos.html">Productos</a> |
+      <a href="carrito.html">Carrito</a> |
+      <a href="pedido.html">Pedido</a> |
+      <a href="factura.html">Factura</a> |
+      <a href="cuenta.html">Mi Cuenta</a> |
+      <a href="login.html" id="loginLink">Login</a> |
+      <a href="registro.html" id="registroLink">Registro</a>
+      <a href="#" id="logoutLink" style="display:none;">Cerrar sesión</a>
+    </nav>
+  </header>
 
-  <div class="container factura-container">
-    <h2>Detalles de la Factura</h2>
-    <div id="factura"></div>
-    <a href="index.html" class="button link">Volver al Inicio</a>
-  </div>
+  <div class="container factura-container">
+        <div id="factura">
+        <p>Cargando detalles de la factura...</p>
+    </div>
+    <a href="index.html" class="button link">Volver al Inicio</a>
+  </div>
 
-  <script src="/js/auth.js"></script>
-  <script src="/js/factura.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/factura.js"></script>
 </body>
 </html>
