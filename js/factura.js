@@ -12,8 +12,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
+        // Llama al endpoint de facturas usando el ID del pedido
         const res = await fetch(`${API_URL}/facturas/${pedidoId}`);
         if (!res.ok) {
+            // Si la factura no existe (404), aquí se lanza el error
             throw new Error('Error al obtener los datos de la factura');
         }
         const factura = await res.json();

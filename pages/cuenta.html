@@ -1,53 +1,69 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Mi Cuenta - Tienda</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <title>Mi Cuenta - Tienda</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header>
-    <h1>Cuenta de Usuario</h1>
-    <nav>
-      <a href="index.html">Inicio</a> |
-      <a href="productos.html">Productos</a> |
-      <a href="carrito.html">Carrito</a> |
-      <a href="pedido.html">Pedido</a> |
-      <a href="factura.html">Factura</a> |
-      <a href="cuenta.html">Mi Cuenta</a> |
-      <a href="login.html" id="loginLink">Login</a> |
-      <a href="registro.html" id="registroLink">Registro</a>
-      <a href="#" id="logoutLink" style="display:none;">Cerrar sesión</a>
-    </nav>
-  </header>
+    <header>
+        <h1>Cuenta de Usuario</h1>
+        <nav>
+            <a href="index.html">Inicio</a> |
+            <a href="productos.html">Productos</a> |
+            <a href="carrito.html">Carrito</a> |
+            <a href="pedido.html">Pedido</a> |
+            <a href="factura.html">Factura</a> |
+            <a href="cuenta.html">Mi Cuenta</a> |
+            <a href="login.html" id="loginLink">Login</a> |
+            <a href="registro.html" id="registroLink">Registro</a>
+            <a href="#" id="logoutLink" style="display:none;">Cerrar sesión</a>
+        </nav>
+    </header>
 
-  <div class="container form-card">
-    <form id="cuentaForm">
-      <h2>Datos Personales</h2>
-      <div class="form-group">
-        <input type="text" id="nombre" placeholder="Nombre completo" required>
-      </div>
-      <div class="form-group">
-        <input type="number" id="documento" placeholder="Documento" required>
-      </div>
-      <div class="form-group">
-        <input type="date" id="fechaNacimiento" required>
-      </div>
-      <div class="form-group">
-        <input type="email" id="correo" placeholder="Correo" required>
-      </div>
-      <button type="submit" class="button form-button">Actualizar</button>
-    </form>
-    
-    <section>
-      <h2>Historial de Pedidos</h2>
-      <div id="historialPedidos">
-        <p>Cargando historial de pedidos...</p>
-      </div>
-    </section>
-  </div>
-  
-  <script src="/js/auth.js"></script>
-  <script src="/js/cuenta.js"></script>
+    <div class="container form-card">
+        <form id="cuentaForm">
+            <h2>Datos Personales</h2>
+            
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" readonly placeholder="Nombre completo" required>
+            </div>
+            <div class="form-group">
+                <label for="documento">Nº Documento:</label>
+                <input type="text" id="documento" readonly placeholder="Documento" required>
+            </div>
+            <div class="form-group">
+                <label for="fechaNacimiento">Fecha Nacimiento:</label>
+                <input type="date" id="fechaNacimiento" readonly required>
+            </div>
+            <p id="edadActual" style="font-weight: bold; margin-top: -10px;"></p> 
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" readonly placeholder="Correo" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" placeholder="Dirección" required>
+            </div>
+            <div class="form-group">
+                <label for="telefono">Teléfono:</label>
+                <input type="text" id="telefono" placeholder="Teléfono" required>
+            </div>
+            
+            <button type="submit" class="button form-button">Actualizar</button>
+        </form>
+        
+        <section>
+            <h2>Historial de Pedidos</h2>
+            <div id="historialPedidos">
+                <p>Cargando historial de pedidos...</p>
+            </div>
+        </section>
+    </div>
+    
+    <script src="/js/auth.js"></script>
+    <script src="/js/cuenta.js"></script>
 </body>
 </html>
